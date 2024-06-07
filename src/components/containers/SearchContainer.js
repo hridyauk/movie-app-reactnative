@@ -25,6 +25,7 @@ const SearchContainer = (props) => {
   const { navigation } = props;
   const [activeValue, setActiveValue] = useState("multi");
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchCount, setSearchCount] = useState(0);
   const [searchResult, setSearchResult] = useState([]);
 
   const SearchDropdown = [
@@ -55,7 +56,8 @@ const SearchContainer = (props) => {
   };
 
   const handleSearch = () => {
-    console.log("button search");
+    setSearchCount((count) => count + 1);
+    // console.log("button search", setSearchCount);
     fetchSearch(activeValue);
   };
 
@@ -110,6 +112,10 @@ const SearchContainer = (props) => {
       </VStack>
       {searchResult.length > 0 ? (
         <ShowCard showList={searchResult} navigation={navigation} />
+      ) : searchQuery.length > 0 && searchCount > 0 ? (
+        <Heading textAlign="center" my="$20">
+          No Movies/TV shows found...
+        </Heading>
       ) : (
         <Heading textAlign="center" my="$20">
           Please initiate a search..
