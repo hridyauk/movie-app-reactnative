@@ -15,11 +15,10 @@ import {
   VStack,
   View,
 } from "@gluestack-ui/themed";
-import { StyleSheet } from "react-native";
-import Dropdown from "../forms/Dropdown";
 import { useEffect, useState } from "react";
 import { getSeacrh } from "../../services/getSearch";
 import ShowCard from "../forms/ShowCard";
+import SearchCard from "../forms/SearchCard";
 
 const SearchContainer = (props) => {
   const { navigation } = props;
@@ -72,43 +71,12 @@ const SearchContainer = (props) => {
   return (
     <View>
       <VStack m={20}>
-        <FormControl isRequired>
-          <VStack gap={2}>
-            <FormControl.Label fontSize="sm">
-              <FormControlLabelText>
-                Search Movie/TV Show Name
-              </FormControlLabelText>
-            </FormControl.Label>
-
-            <HStack width="100%" space={2}>
-              <Input style={styles.inputStyles} mr={10} px={5}>
-                <InputIcon>
-                  <Icon as={SearchIcon} size="sm" />
-                </InputIcon>
-                <InputField
-                  onChangeText={(value) => handleInputChange(value)}
-                  placeholder="i.e James Bond, CSI..."
-                />
-              </Input>
-            </HStack>
-            <FormControl.Label fontSize="sm">
-              <FormControlLabelText>Choose Search Type</FormControlLabelText>
-            </FormControl.Label>
-            <HStack gap={5}>
-              <VStack flex={1}>
-                <Dropdown
-                  dropdownList={SearchDropdown}
-                  onDropdownChange={handleDropdownChange}
-                />
-                <Text fontSize="$sm">Please select a search type</Text>
-              </VStack>
-              <Button onPress={handleSearch} bgColor="$cyan500">
-                <ButtonIcon as={SearchIcon} mr="$2" />
-                <ButtonText>Search</ButtonText>
-              </Button>
-            </HStack>
-          </VStack>
-        </FormControl>
+        <SearchCard
+          onInputChange={handleInputChange}
+          SearchDropdown={SearchDropdown}
+          onDropdownChange={handleDropdownChange}
+          handleSearch={handleSearch}
+        />
       </VStack>
       {searchResult.length > 0 ? (
         <ShowCard showList={searchResult} navigation={navigation} />
@@ -126,10 +94,3 @@ const SearchContainer = (props) => {
 };
 
 export default SearchContainer;
-
-const styles = StyleSheet.create({
-  inputStyles: {
-    flex: 1,
-    alignItems: "center",
-  },
-});
