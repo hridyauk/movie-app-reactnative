@@ -19,14 +19,14 @@ const ShowCard = (props) => {
       renderItem={({ item }) => {
         return (
           <Card m={10}>
-            <HStack>
+            <HStack flex={1}>
               <Image
                 source={{ uri: item.poster_path }}
                 alt={item.title || item.name}
                 width={100}
                 height={100}
               />
-              <VStack>
+              <VStack flex={1}>
                 <Heading>{item.title || item.name}</Heading>
                 <Text>Popularity: {item.popularity}</Text>
                 <Text>
